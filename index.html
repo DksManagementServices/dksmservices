@@ -303,13 +303,17 @@ function doLogin(){
     alert("Welcome OFFICE");
     return;
   }
-  let list = getVerifiers();
-  let found = list.find(function(v){ return v.phone === phone && v.pass.toUpperCase() === pass; });
-  if(!found){
-    document.getElementById('loginMsg').innerText = "Vul Phone / Password! Phone: " + phone + " - Office ke bolo. Thik Password: DKS@2024";
-    alert("LOGIN FAIL\nPhone: " + phone + "\nPassword ja dile: " + passRaw + "\nThik Password: DKS@2024 (boro hate)");
-    return;
-  }
+let list = getVerifiers();
+let found = list.find(function(v){ 
+  return v.phone === phone && v.pass.toUpperCase() === pass; 
+});
+
+if(!found){
+  document.getElementById('loginMsg').innerText = "WRONG CREDENTIAL";
+  document.getElementById('loginMsg').style.color = "red";
+  document.getElementById('passwordInput').value = "";
+  return;
+}
   currentUser = found;
   localStorage.setItem('dks_login', JSON.stringify(found));
   document.getElementById('loginBox').classList.add('hidden');
